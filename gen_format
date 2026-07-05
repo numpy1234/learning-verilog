@@ -5,3 +5,20 @@ declaration
 statement
 
 end of module
+
+
+PORTS
+input
+output
+inout(bidirectioncal)
+by default they are wires
+
+value set in verilof
+0 - logic zero
+1- logic one
+x- unknown
+z - high impedance floating state
+
+x and z are undesired
+
+
