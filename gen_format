@@ -83,6 +83,11 @@ put a negaative sign before the size for a constant number
 Net/wire - to make connections
 Declared by keyword "wire", needs a driver
 
+
+
+
+
+
 register - to store the data, retains their value until another value is placed
 they do not need any drivers
 declared by "reg"
@@ -90,7 +95,6 @@ not same as flip flop
  
 
 
-memories - array of data storage
 
 
 Vectors
@@ -127,8 +131,26 @@ B[3:0] = not possible
 
 
 
+memories - array of register
+
+reg [wordsize:0] memory [0: arraysize]
+
+Eg;
+reg mem1bit[0:1023]; //memory mem1bit with 1K 1 bit words since didnt specify the wordsize
+reg [7:0] membyte [0:1023] //memory membyte with 1K 8 bit words or 1K 8 bit registers
 
 
+
+
+
+
+Parameters
+parameter <identifier> =const;
+
+Example:
+
+paramater byte_size = 8;
+reg[byte_size-1:0] A;
 
 
 
