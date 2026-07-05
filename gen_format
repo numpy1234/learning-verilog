@@ -13,6 +13,11 @@ output
 inout(bidirectioncal)
 by default they are wires
 
+
+
+
+
+
 value set in verilof
 0 - logic zero
 1- logic one
@@ -20,5 +25,114 @@ x- unknown
 z - high impedance floating state
 
 x and z are undesired
+
+
+
+
+
+comments:
+//
+/**/
+
+
+
+
+
+a=~b; //negation, unary operator
+
+a=b&&c; // and , binary operator
+
+a=b?c:d //if b is true then c to a else d to a
+
+
+
+
+
+Number specification
+
+<bit size>'<base format><number>
+
+4'b1111
+12'habc  (since hexa decimal each digit is a 4 bit number)
+16'd255
+
+if base format not decided then by default its decimal
+
+if bit size not written
+then max size is considered
+
+23456 //32 bit decinmal
+'hc3 //32 bit hexa
+'o21 //32 bit octal
+
+
+
+
+
+Negative number
+put a negaative sign before the size for a constant number
+
+-6'd3 (6 bit negative number stored as 2's complement of 3)
+4d'-2 //illegal
+
+
+
+
+
+
+Net/wire - to make connections
+Declared by keyword "wire", needs a driver
+
+register - to store the data, retains their value until another value is placed
+they do not need any drivers
+declared by "reg"
+not same as flip flop
+ 
+
+
+memories - array of data storage
+
+
+Vectors
+nets or reg data types can be declared as vectors
+by default its 1 bit
+
+wire a; //scalar net variable, default
+wire [7:0] bus //8 bit bus
+wire [31: 0] busA, busB, busC //3 buses of 32 bit width
+31 is the msb
+0 is the lsb
+reg [0:40] virtual addr; //0 is msb, 40th is the lsb
+
+eg:
+CASE I
+reg [7:0] A;
+A=8'b10110011;
+Index: 7 6 5 4 3 2 1 0
+Value: 1 0 1 1 0 0 1 1
+A[2] = 0
+A[3:0] = 0 0 1 1
+A[0:3] = not possible (because the vector was declared descending part selects must also be same)
+
+CASE II
+reg [0:7] B;
+B=8'b10110011
+Index: 0 1 2 3 4 5 6 7
+Value: 1 0 1 1 0 0 1 1
+B[2]=1
+B[0:3]= 1 0 1 1
+B[3:0] = not possible
+
+
+
+
+
+
+
+
+
+
+
+
 
 
