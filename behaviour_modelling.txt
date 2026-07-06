@@ -1,0 +1,139 @@
+Initial statement
+
+module stimulus;
+  reg x,y,a,b,m;
+  initial
+    m=1'b0;
+  initial
+    begin
+      #5 a=1'b1;
+      #25 b=1'b0;
+    end
+  initial 
+    begin
+      #10 x= 1'b0;
+      #25 y=1'b1;  /// #25 means after 25 units of time y would become 1 even tho the initial block was running from time 0
+    end
+  initial
+    #50 $finish
+endmodule
+
+///procedural clocks are concurrent process
+///the initial statements are typically used for initialisation , monitoring, waveforms and other 
+processes that must be executed only once during entire simulation run
+
+    
+
+Always statement
+starts at time 0 and it keeps on repeating in a looping fashion 
+
+module clock_gen (output reg clock);
+initial 
+  clock = 1'b0;
+always
+  #10 clock =~clock;
+initial
+  #10000 $finish;
+endmodule
+
+
+
+
+///LHS must be reg and cannot be net, RHS can be net/reg
+
+
+
+
+
+Event control
+
+Edge controlled : always@(posedge clk), always@(negedge clk)
+
+Level triggered : always@(A or B)
+
+
+
+
+
+Behavioural description of 4 to 1 line mux
+
+module mux4x1(i0, i1, i2, i3, select, y);
+  input i0, i1, i2, i3;
+  input [1:0] select;
+  output y;
+  reg y;
+  always@(i0 or i1 or i2 oe i3 or select) ///executes when i0, i1, i2, i3 or select changes 
+  begin
+    case(select)
+      2'b00: y= i0;
+      2'b01: y= i1;
+      2'b10: y= i2;
+      2'b11: y=i3;
+    endcase
+  end
+endmodule
+
+
+Procedural assignment
+= : blocking, executed in the order they are specified in a sequential block, will not block execution of statatements that follow in a parallel block
+<=: non blocking allow scheduling of assignments without blocking execution of statements that follow in a sequential block
+
+
+example :
+Case 1
+reg a =5, reg b=10, reg c= 20, reg d = 30
+
+b=a
+c=b
+d=c
+
+new values : a=5, b=5, c=5, d=5  ///it exceutes sequentially, used to model combinational, they are nets, not inside always block
+
+
+Case 2
+reg a =5, reg b=10, reg c= 20, reg d = 30
+
+b<=a
+c<=b
+d<=c
+
+new values : a=5, b=5, c=10, d=20 ///it executes parallely, doesnt wait for the previous statement, used to model sequential circuit, a,b,c are regs placed inside always block
+
+always@(posedge clk)
+begin
+a<=1
+b<=a
+c<=b
+
+example:
+
+var initial cycle1 cycle2
+a      0      1      1 
+b      1      0      1
+c      1      1      0
+
+
+
+
+
+
+
+Race condition
+always@(posedge clk)
+  a=b;
+always@(posedge c;k)
+  b=a;
+
+since always blocks run simultaneously we dont know a=b first or b=a first
+
+
+
+
+always@(posedge clk)
+  a<=b;
+always@(posedge c;k)
+  b<=a;
+
+///always takes the old value of rhs reg, this module swaps the value after 1 clock cycle
+
+  
