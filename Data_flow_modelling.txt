@@ -1,0 +1,30 @@
+Data flow uses continous assignments and the keyword assign
+
+syntax:
+
+assign <drive_strength> # <delay> <list of assignments>;
+
+Example :
+wire out;
+assign out = var1 & var2;
+
+LHS must be net. RHS can be net/reg
+
+
+Example : 4 to 1 line multiplexer
+
+module mux4x1(y, s0, s1, i0, i1, i2, i3);
+  input i0, i1, i2, i3, s1, s0;
+  output y;
+  assign y= (~s1 & ~s0 & i0) | (~s1 & s0 & i1) | (s1 & ~s0 & i2) | (s1 & s0 & i3);
+endmodule
+
+Example: mux2x1
+module mux2x1(y, sel, i0, i1);
+  input i0, i1, sel;
+  output y;
+  assign y= sel ? i1 : i0;
+endmodule
+
+
+
