@@ -37,8 +37,6 @@ initial
 endmodule
 
 
-
-
 ///LHS must be reg and cannot be net, RHS can be net/reg
 
 
@@ -72,6 +70,14 @@ module mux4x1(i0, i1, i2, i3, select, y);
     endcase
   end
 endmodule
+
+
+
+
+
+
+
+
 
 
 Procedural assignment
@@ -118,6 +124,9 @@ c      1      1      0
 
 
 
+
+
+
 Race condition
 always@(posedge clk)
   a=b;
@@ -127,8 +136,6 @@ always@(posedge c;k)
 since always blocks run simultaneously we dont know a=b first or b=a first
 
 
-
-
 always@(posedge clk)
   a<=b;
 always@(posedge c;k)
@@ -136,4 +143,34 @@ always@(posedge c;k)
 
 ///always takes the old value of rhs reg, this module swaps the value after 1 clock cycle
 
-  
+
+
+
+EXAMPLE
+
+module block();
+reg a,b,c,d,e,f;
+initial 
+begin
+  a= #10 1'b1;     //assigns 1 to a at time 10
+  b= #20 1'b0;     //assigns 0 to b at time 30 (10+20)
+  a= #40 1'b1;     //assigns 1 to c at time 70 (30+40)
+end
+endmodule
+
+these proess run sequentially and wait for previous to finish
+
+
+
+
+
+module non_block();
+initial
+begin
+  d<= #10 1'b1; //assigns 1 to d at time 10
+  e<= #20 1'b0; //assigns 0 to e at time 20 
+  f<= #40 1'b1; //assigns 1 to f at time 40
+end
+endmodule
+
+these processes run simultaenously and doesnt wait for previous and works on the value which was present earlier
