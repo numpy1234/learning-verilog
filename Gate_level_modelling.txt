@@ -1,0 +1,63 @@
+Gate level
+primitive names
+and
+or
+xor
+nand
+nor
+xnor
+not
+buf
+bufif0
+bufif1
+
+Delay 
+primitive_name #delay instance_ame (output, in_1, in_2);
+eg. and # a1(out, in_1, in_2);
+
+
+example 1: simple circuit
+
+module simple_cir(x, y, A,B,C);
+  input A,B,C;
+  output x,y;
+  wire e;
+  
+  and g1(e, A, B);
+  not g2(y, C);
+  or g3(x,e,y);
+endmodule
+
+
+
+
+
+example 2 : Making 4 bit full adder
+
+module halfadder(s, c, x, y);
+  input x, y;
+  output s,c;
+  xor(s, x, y);
+  and (c, x, y);
+endmodule
+
+module fulladder(s,c,x,y,z);
+  input x,y,z;
+  output s,c;
+  wire s1,d1,d2
+  halfadder ha1(s1, d1, x, y);
+  halfadder ha2(s, d2, s1, z);
+  or g1(c, d2, d1);
+endmodule
+
+module fourbitadder(s, c4, a,b,c0);
+  input [3:0] a,b;
+  input c0;
+  output [3:0] s;
+  output c4;
+  wire c1, c2,c3;
+  fulladder fa0(s[0], c1, a[0], b[0], c0);
+  fulladder fa0(s[1], c2, a[1], b[1], c1;
+  fulladder fa0(s[2], c3, a[2], b[2], c2);
+  fulladder fa0(s[3], c4, a[3], b[3], c3);
+endmodule
