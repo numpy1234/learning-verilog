@@ -28,3 +28,33 @@ endmodule
 
 
 
+Example:
+assign #10 out =in1 & in2;
+delay in continous assign (10 units of time)
+used in testbenches
+
+
+
+
+Operators:
+
+bitwise and - & (operates on each bit)
+logical and - && (result is either 1 or 0, anything other than 0 is 1)
+bitwise or - | (operates on each bit)
+logical or - || (result is a single bit 0 or 1 , used in if and while condition)
+
+^ = xor
+~^ = xnor
+
+
+assign y =^a  (this means it would do xor of all the bits of a and store the result in y )
+
+
+>> right shift (right shift by 1 is divided by 2 mathematically but in hardware it may truncate the decimal)
+<< left shift (left shift by 1 is multiplied by 2 but in hardware it depends on bit width as oveflow can happen)
+
+
+{} concatenation
+{{}} replication  {4{a}}
+
+? : conditional
