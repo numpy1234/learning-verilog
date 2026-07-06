@@ -1,0 +1,41 @@
+MODELLING TECHNIQUES 
+Behaviour(highest abstraction)
+Data flow
+Gate level
+Switch Level (lowest abstraction)
+
+
+Switch Level
+based on transistor
+
+example:
+
+module not_gate(x,f);
+  input x;
+  output f;
+  
+  supply1 vdd;
+  supply0 gnd;
+  
+  pmos p1(f, vdd, x);
+  nmos n1(f, gnd, x);
+
+endmodule;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
