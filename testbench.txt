@@ -1,0 +1,36 @@
+Inter assignment delay
+#10 a=b;     #10
+              a=b
+
+Intra assignment delay
+a=#5 b         temp=b
+               #5
+               a=temp
+
+
+
+Clock generation with 50 percent duty cycle
+
+initial clk=0;
+always #10 clk=~clk;
+
+
+with varable duty cycle
+
+module clk_gen(output clk)
+  parameter clk_period = 10
+  parameter duty_cycle = 60
+  parameter tclk_high = duty cycle * clk period /100
+  parameter tclk_low = clk_period - tclk_high
+
+  reg  clk
+  initial
+  clk=0
+  always
+  begin
+    #tclk_low
+    clk=1'b1
+    #tclk_high
+    clk=1'b0;
+  end
+endmodule
